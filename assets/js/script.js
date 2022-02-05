@@ -64,7 +64,7 @@ fetch(queryGeoURL)
         return res.json()
     })
     .then(function (data) {
-        console.log(data);
+        // console.log(data);
         var searchCity = document.createElement('p');
         var searchState = document.createElement('p');
         var searchLat = document.createElement('p');
@@ -90,7 +90,33 @@ fetch(queryGeoURL)
     })
 
 //OneCall API https://openweathermap.org/api/one-call-api
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/weather?lat=39&lon=-84&appid=' + apiKey;
+var queryWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?lat=39&lon=-84&appid=' + apiKey;
+
+fetch(queryWeatherURL)
+    .then(function (res)   {
+        return res.json()
+    })
+    .then(function (data) {
+        // console.log(data);
+        // var temp = document.createElement('p');
+        var conditions = document.createElement('p');
+        // var humdity = document.createElement('p');
+        // var uvIndex = document.createElement('p');
+        // var windSpeed = document.createElement('p');
+        // temp.textContent = data.main.temp;
+        conditions.textContent = data.weather[0].description;
+        // humdity.textContent = data.main.humdity;
+        // // uvIndex.textContent = data.current.uvi;
+        // windSpeed.textContent = data.wind.speed;
+        // console.log(temp);
+        console.log(conditions);
+        // console.log(humdity);
+        // // console.log(uvIndex);
+        // console.log(windSpeed);
+    })
+
+    //OneCall API https://openweathermap.org/api/one-call-api
+var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=' + apiKey;
 
 fetch(queryOneCallURL)
     .then(function (res)   {
@@ -101,17 +127,17 @@ fetch(queryOneCallURL)
         var temp = document.createElement('p');
         var conditions = document.createElement('p');
         var humdity = document.createElement('p');
-        // var uvIndex = document.createElement('p');
+        var uvIndex = document.createElement('p');
         var windSpeed = document.createElement('p');
-        temp.textContent = data.main.temp;
-        conditions.textContent = data.weather[0].description;
-        humdity.textContent = data.main.humdity;
-        // uvIndex.textContent = data.current.uvi;
-        windSpeed.textContent = data.wind.speed;
+        temp.textContent = data.current.temp;
+        // conditions.textContent = data.weather[0].description;
+        humdity.textContent = data.current.humidity;
+        uvIndex.textContent = data.current.uvi;
+        windSpeed.textContent = data.current.wind_speed;
         console.log(temp);
         console.log(conditions);
         console.log(humdity);
-        // console.log(uvIndex);
+        console.log(uvIndex);
         console.log(windSpeed);
     })
 

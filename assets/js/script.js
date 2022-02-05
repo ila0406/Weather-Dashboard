@@ -52,3 +52,19 @@ fetch(queryOneCallURL)
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 // This will return current weather data for the city with lat, lon values.
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
+function getParams(){
+    console.log("getParams");
+}
+
+function printResults(resultObj) {
+    console.log(resultObj);
+}
+
+function searchApi(query, format) {
+    console.log("SearchAPI");
+}
+
+function handleSearchFormSubmit(event) {
+    console.log("SearchForm");
+}

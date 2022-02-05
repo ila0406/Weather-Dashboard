@@ -1,4 +1,4 @@
-//ab1d33e89edaaf1e007ef532ee7c019c API key
+var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 
 function searchForCity(event) {
@@ -24,7 +24,7 @@ searchButton.addEventListener('click', searchForCity);
 
 
 //Geocoding API https://openweathermap.org/api/geocoding-api
-var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=ab1d33e89edaaf1e007ef532ee7c019c';
+var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=' + apiKey;
 
 fetch(queryGeoURL)
     .then(function (res)   {
@@ -35,7 +35,7 @@ fetch(queryGeoURL)
     })
 
 //OneCall API https://openweathermap.org/api/one-call-api
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=ab1d33e89edaaf1e007ef532ee7c019c';
+var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=' + apiKey;
 
 fetch(queryOneCallURL)
     .then(function (res)   {

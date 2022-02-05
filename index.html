@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&family=Merriweather:wght@700&display=swap"
+    rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/jass.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
@@ -21,21 +24,18 @@
             <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back.</a>
         </div>
     
-        <div class="col-12 col-md-9 p-3 text-light">
+        <div class="col-12 col-md-9 p-3 text-light cityWeather">
             <h2>Showing results for <span id="result-text"></span></h2>
             <div id="result-content"></div>
+            <h2>City + Date</h2>
+            <div class="day0"></div>
+            <h3>5-Day Forecast:</h3>
+            <div class="day1"></div>
+            <div class="day2"></div>
+            <div class="day3"></div>
+            <div class="day4"></div>
+            <div class="day5"></div>
         </div>
-    </div>
-
-    <div class="cityWeather">
-        <h2>City + Date</h2>
-        <div class="day0"></div>
-        <h3>5-Day Forecast:</h3>
-        <div class="day1"></div>
-        <div class="day2"></div>
-        <div class="day3"></div>
-        <div class="day4"></div>
-        <div class="day5"></div>
     </div>
 
     <script src="./assets/js/script.js"></script>

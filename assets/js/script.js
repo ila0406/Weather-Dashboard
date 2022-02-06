@@ -1,7 +1,7 @@
 // Variables for time
-var currentCity = 'Boston';
+var currentCity = 'Today is';
 var todayDate = moment().format('l');
-var CityDate = currentCity + ' - ' + todayDate;
+var CityDate = currentCity + ' (' + todayDate + ') ';
 
 var day1 = moment().add(1, 'days').format('l');
 var day2 = moment().add(2, 'days').format('l'); 
@@ -28,7 +28,7 @@ var searchButton = document.querySelector(".btn");
 function searchForCity(event) {
     event.preventDefault();
 
-    console.log(searchInput);
+    // console.log(searchInput);
     var searchInput = document.getElementById("search").value;
     console.log(searchInput);
 
@@ -37,17 +37,18 @@ function searchForCity(event) {
         return;
     }
 
-    var queryString = './search-results.html?q=' + searchInput + '&format=';
-    console.log(queryString);
+    //var queryString = './search-results.html?q=' + searchInput + '&format=';
+    // var queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
+    
     currentCity = searchInput;
     CityDate = currentCity + ' - ' + todayDate;
-    console.log(CityDate);
+    // console.log(CityDate);
     $("#currentSearch").text(CityDate);
 
     //Geocoding API https://openweathermap.org/api/geocoding-api
-    console.log(currentCity);
+    // console.log(currentCity);
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
-    console.log(queryGeoURL);
+    
     fetch(queryGeoURL)
         .then(function (res)   {
             return res.json()
@@ -62,11 +63,14 @@ function searchForCity(event) {
             searchState.textContent = data[0].state;
             searchLat.textContent = data[0].lat;
             searchLon.textContent = data[0].lon;
-            console.log(searchCity);
-            console.log(searchState);
+            // console.log(searchCity);
+            // console.log(searchState);
             console.log(searchLat);
             console.log(searchLon);
         })
+
+        // console.log(queryString);
+        console.log(queryGeoURL);
 }
 
 searchButton.addEventListener('click', searchForCity);
@@ -113,7 +117,7 @@ var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
 
-console.log(queryOneCallURL);
+// console.log(queryOneCallURL);
 var weatherDetails = document.querySelector('ul');
 
 fetch(queryOneCallURL)

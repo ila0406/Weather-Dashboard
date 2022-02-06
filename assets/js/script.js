@@ -81,7 +81,7 @@ fetch(queryGeoURL)
 
 
 //OneCall API https://openweathermap.org/api/one-call-api
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=' + apiKey;
+var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
 var weatherDetails = document.querySelector('ul');
 
 fetch(queryOneCallURL)
@@ -89,35 +89,55 @@ fetch(queryOneCallURL)
         return res.json()
     })
     .then(function (data) {
-        // console.log(data);
+        console.log(data);
         var temp = document.createElement('li');
         var conditions = document.createElement('li');
         var humdity = document.createElement('li');
         var uvIndex = document.createElement('li');
         var windSpeed = document.createElement('li');
+        var dailyConditions = document.createElement('p');
+        var dailytemp = document.createElement('p');
+        var dailyhumdity = document.createElement('p');
+        var dailywindSpeed = document.createElement('p');
         temp.textContent = data.current.temp;
         conditions.textContent = data.current.weather[0].description;
         humdity.textContent = data.current.humidity;
         uvIndex.textContent = data.current.uvi;
         windSpeed.textContent = data.current.wind_speed;
+        
         console.log(temp);
         console.log(conditions);
         console.log(humdity);
         console.log(uvIndex);
         console.log(windSpeed);
+       
 
         //for (var i = 0; i < data.length; i++) {
             temp.textContent = data.current.temp;
             weatherDetails.appendChild(temp);
-            conditions.textContent = data.current.weather[0].description;
-            weatherDetails.appendChild(conditions);
+            windSpeed.textContent = data.current.wind_speed;
+            weatherDetails.appendChild(windSpeed);
             humdity.textContent = data.current.humidity;
             weatherDetails.appendChild(humdity);
             uvIndex.textContent = data.current.uvi;
             weatherDetails.appendChild(uvIndex);
-            windSpeed.textContent = data.current.wind_speed;
-            weatherDetails.appendChild(windSpeed);
+            conditions.textContent = data.current.weather[0].description;
+            weatherDetails.appendChild(conditions);
           //}
+        
+        for (var i = 1; i < 6; i++) {  
+            dailyConditions.textContent = data.daily[i].weather[0].description;
+            console.log(dailyConditions);
+            dailytemp.textContent = data.daily[i].temp.day;
+            console.log(dailytemp);
+            dailywindSpeed.textContent = data.daily[i].wind_speed;
+            console.log(dailywindSpeed);
+            dailyhumdity.textContent = data.daily[i].humidity;
+            console.log(dailyhumdity);
+        }
+
+
+
     })
     
     // var queryCovidURL = 'https://corona.lmao.ninja/v2/countries?yesterday=&sort=?&limit=1';

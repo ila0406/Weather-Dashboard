@@ -27,6 +27,8 @@ $("#day5").text(day5);
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 
+searchButton.addEventListener('click', searchForCity);
+
 function searchForCity(event) {
     event.preventDefault();
 
@@ -62,8 +64,6 @@ function searchForCity(event) {
             getWeather(queryOneCallURL);
         })
 }
-
-searchButton.addEventListener('click', searchForCity);
 
 
 //////////////////////////////////////////////////////

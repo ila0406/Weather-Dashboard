@@ -40,7 +40,7 @@ function searchForCity(event) {
     
     console.log(searchInput);
     currentCity = searchInput;
-    CityDate = currentCity + ' - ' + todayDate;
+    CityDate = currentCity + ' (' + todayDate + ')';
     $("#currentSearch").text(CityDate);
 
     // Geocoding API https://openweathermap.org/api/geocoding-api
@@ -54,16 +54,22 @@ function searchForCity(event) {
             // console.log(data);
             var searchCity = document.createElement('p');
             var searchState = document.createElement('p');
-            var searchLat = document.createElement('p');
-            var searchLon = document.createElement('p');
+            var searchLat = data[0].lat;
+            var searchLon = data[0].lon;
+            var queryLat = '38.833';
+            var queryLon = '-104-82';
             searchCity.textContent = data[0].name;
             searchState.textContent = data[0].state;
-            searchLat.textContent = data[0].lat;
-            searchLon.textContent = data[0].lon;
+            // searchLat.textContent = data[0].lat;
+            // searchLon.textContent = data[0].lon;
             console.log(searchCity);
             console.log(searchState);
             console.log(searchLat);
             console.log(searchLon);
+
+            
+            queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
+            console.log(queryOneCallURL);
         })
 
         // console.log(queryString);
@@ -114,7 +120,7 @@ var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
 
-// console.log(queryOneCallURL);
+console.log(queryOneCallURL);
 var weatherDetails = document.querySelector('ul');
 
 fetch(queryOneCallURL)

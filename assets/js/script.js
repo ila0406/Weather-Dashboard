@@ -39,6 +39,10 @@ function searchForCity(event) {
 
     var queryString = './search-results.html?q=' + searchInput + '&format=';
     console.log(queryString);
+    currentCity = searchInput;
+    CityDate = currentCity + ' - ' + todayDate;
+    console.log(CityDate);
+    $("#currentSearch").text(CityDate);
 }
 
 searchButton.addEventListener('click', searchForCity);

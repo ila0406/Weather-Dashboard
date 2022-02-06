@@ -28,9 +28,7 @@ var searchButton = document.querySelector(".btn");
 function searchForCity(event) {
     event.preventDefault();
 
-    // console.log(searchInput);
     var searchInput = document.getElementById("search").value;
-    console.log(searchInput);
 
     if (!searchInput) {
         console.error('You need a search input value!');
@@ -40,13 +38,12 @@ function searchForCity(event) {
     //var queryString = './search-results.html?q=' + searchInput + '&format=';
     // var queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
     
+    console.log(searchInput);
     currentCity = searchInput;
     CityDate = currentCity + ' - ' + todayDate;
-    // console.log(CityDate);
     $("#currentSearch").text(CityDate);
 
-    //Geocoding API https://openweathermap.org/api/geocoding-api
-    // console.log(currentCity);
+    // Geocoding API https://openweathermap.org/api/geocoding-api
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
     
     fetch(queryGeoURL)
@@ -63,8 +60,8 @@ function searchForCity(event) {
             searchState.textContent = data[0].state;
             searchLat.textContent = data[0].lat;
             searchLon.textContent = data[0].lon;
-            // console.log(searchCity);
-            // console.log(searchState);
+            console.log(searchCity);
+            console.log(searchState);
             console.log(searchLat);
             console.log(searchLon);
         })

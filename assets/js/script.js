@@ -154,35 +154,50 @@ fetch(queryOneCallURL)
             weatherDetails.appendChild(conditions);
           //}
         
+        var trConditions;
+        var trTemp;
+        var trWind;
+        var trHumdity;
+          
         for (var i = 1; i < 6; i++) {  
+            trConditions = '#conditions'+ [i];
+            trTemp = '#temp'+ [i];
+            trWind = '#wind'+ [i];
+            trHumdity = '#humdity'+ [i];
+            console.log(trConditions);
             dailyConditions.textContent = data.daily[i].weather[0].description;
-            console.log(dailyConditions);
+            //console.log(dailyConditions);
+            $(trConditions).text(dailyConditions.textContent);
             dailytemp.textContent = data.daily[i].temp.day;
-            console.log(dailytemp);
+            $(trTemp).text(dailytemp.textContent);
+            //console.log(dailytemp);
             dailywindSpeed.textContent = data.daily[i].wind_speed;
-            console.log(dailywindSpeed);
+            $(trWind).text(dailywindSpeed.textContent);
+            //console.log(dailywindSpeed);
             dailyhumdity.textContent = data.daily[i].humidity;
-            console.log(dailyhumdity);
+            $(trHumdity).text(dailyhumdity.textContent);
+            //console.log(dailyhumdity);
+            console.log(i);
         }
 
-        //5-day Forcast weather loops
-        var forecastDay = 0;
-        while (forecastDay < 6){
-            var tableBody = document.getElementById('forecast-table');
-            var createTableRow = document.createElement('tr');
-            //5-day - daily Conditions
-            for (var i = 1; i < 6; i++) { 
-                var tableData = document.createElement('td');
-                dailyConditions.textContent = data.daily[i].weather[0].description;
-                console.log(dailyConditions);
-                tableData.appendChild(dailyConditions);
-                createTableRow.appendChild(tableData);
-                tableBody.appendChild(createTableRow);
-            }
-            forecastDay++;
-            console.log(forecastDay);
+        // //5-day Forcast weather loops
+        // var forecastDay = 0;
+        // while (forecastDay < 6){
+        //     var tableBody = document.getElementById('forecast-table');
+        //     var createTableRow = document.createElement('tr');
+        //     //5-day - daily Conditions
+        //     for (var i = 1; i < 6; i++) { 
+        //         var tableData = document.createElement('td');
+        //         dailyConditions.textContent = data.daily[i].weather[0].description;
+        //         console.log(dailyConditions);
+        //         tableData.appendChild(dailyConditions);
+        //         createTableRow.appendChild(tableData);
+        //         tableBody.appendChild(createTableRow);
+        //     }
+        //     forecastDay++;
+        //     console.log(forecastDay);
 
-        }
+        // }
     })
     
     // var queryCovidURL = 'https://corona.lmao.ninja/v2/countries?yesterday=&sort=?&limit=1';

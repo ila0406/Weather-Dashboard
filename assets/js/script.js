@@ -1,5 +1,5 @@
 // Variables for time
-var currentCity = 'Cincinnati';
+var currentCity = 'Boston';
 var todayDate = moment().format('l');
 var CityDate = currentCity + ' - ' + todayDate;
 
@@ -43,6 +43,30 @@ function searchForCity(event) {
     CityDate = currentCity + ' - ' + todayDate;
     console.log(CityDate);
     $("#currentSearch").text(CityDate);
+
+    //Geocoding API https://openweathermap.org/api/geocoding-api
+    console.log(currentCity);
+    var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
+    console.log(queryGeoURL);
+    fetch(queryGeoURL)
+        .then(function (res)   {
+            return res.json()
+        })
+        .then(function (data) {
+            // console.log(data);
+            var searchCity = document.createElement('p');
+            var searchState = document.createElement('p');
+            var searchLat = document.createElement('p');
+            var searchLon = document.createElement('p');
+            searchCity.textContent = data[0].name;
+            searchState.textContent = data[0].state;
+            searchLat.textContent = data[0].lat;
+            searchLon.textContent = data[0].lon;
+            console.log(searchCity);
+            console.log(searchState);
+            console.log(searchLat);
+            console.log(searchLon);
+        })
 }
 
 searchButton.addEventListener('click', searchForCity);
@@ -57,50 +81,29 @@ searchButton.addEventListener('click', searchForCity);
 //////////////////////////////////////////////////////
 
 
-var resultTextEl = document.querySelector('#result-text');
-var resultContentEl = document.querySelector('#result-content');
-var searchFormEl = document.querySelector('#search-form');
+// var resultTextEl = document.querySelector('#result-text');
+// var resultContentEl = document.querySelector('#result-content');
+// var searchFormEl = document.querySelector('#search-form');
 
-function getParams(){
-    console.log("getParams");
-}
+// function getParams(){
+//     console.log("getParams");
+// }
 
-function printResults(resultObj) {
-    console.log(resultObj);
-}
+// function printResults(resultObj) {
+//     console.log(resultObj);
+// }
 
-function searchApi(query, format) {
-    console.log("SearchAPI");
-}
+// function searchApi(query, format) {
+//     console.log("SearchAPI");
+// }
 
-function handleSearchFormSubmit(event) {
-    console.log("SearchForm");
-}
+// function handleSearchFormSubmit(event) {
+//     console.log("SearchForm");
+// }
 
 
 
-//Geocoding API https://openweathermap.org/api/geocoding-api
-var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + 'Cincinnati' + '&limit=1&appid=' + apiKey;
 
-fetch(queryGeoURL)
-    .then(function (res)   {
-        return res.json()
-    })
-    .then(function (data) {
-        // console.log(data);
-        var searchCity = document.createElement('p');
-        var searchState = document.createElement('p');
-        var searchLat = document.createElement('p');
-        var searchLon = document.createElement('p');
-        searchCity.textContent = data[0].name;
-        searchState.textContent = data[0].state;
-        searchLat.textContent = data[0].lat;
-        searchLon.textContent = data[0].lon;
-        console.log(searchCity);
-        console.log(searchState);
-        console.log(searchLat);
-        console.log(searchLon);
-    })
 
 
 //OneCall API https://openweathermap.org/api/one-call-api

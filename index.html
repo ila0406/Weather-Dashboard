@@ -7,6 +7,7 @@
     <title>Weather Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&family=Merriweather:wght@700&display=swap"
     rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/jass.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
@@ -30,10 +31,8 @@
             <h2 id="currentSearch"></h2>
             <div class="day0"></div>
             <ul class="col-8 mb-3"></ul>
-            <table class="card-body table mx-auto my-4">
-                <th>
-                  <p class="my-4">5-Day Forecast:</p>
-                </th>
+            <h3>5-Day Forecast:</h3>
+            <table class="card-body table mx-auto my-4" style="border-color:white;">
                 <tbody id="forecast-table" class="mx-auto"></tbody>
                 <tr>
                     <th>Date</th>

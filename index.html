@@ -27,15 +27,22 @@
     
         <div class="col-12 col-md-9 p-3 text-light cityWeather">
             <div id="result-content"></div>
-            <h2 id="currentSearch" >City + Date</h2>
+            <h2 id="currentSearch"></h2>
             <div class="day0"></div>
             <ul class="col-8 mb-3"></ul>
-            <h3>5-Day Forecast:</h3>
-            <div class="day1"></div>
-            <div class="day2"></div>
-            <div class="day3"></div>
-            <div class="day4"></div>
-            <div class="day5"></div>
+            <table class="card-body table mx-auto my-4">
+                <th>
+                  <p class="my-4">5-Day Forecast:</p>
+                </th>
+                <tbody id="repo-table" class="mx-auto text-center"></tbody>
+                <tr>
+                    <th id="day1"></th>
+                    <th id="day2"></th>
+                    <th id="day3"></th>
+                    <th id="day4"></th>
+                    <th id="day5"></th>
+                </tr>
+            </table>
         </div>
     </div>
 

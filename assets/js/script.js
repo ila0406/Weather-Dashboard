@@ -2,13 +2,20 @@
 var currentCity = 'Cincinnati';
 var todayDate = moment().format('l');
 var CityDate = currentCity + ' - ' + todayDate;
-$("#currentSearch").text(CityDate);
 
-var day1 = moment().add(1, 'days').format('l'); 
+var day1 = moment().add(1, 'days').format('l');
 var day2 = moment().add(2, 'days').format('l'); 
-var day3 = moment().add(3, 'days').format('l'); 
-var day4 = moment().add(4, 'days').format('l'); 
-var day5 = moment().add(5, 'days').format('l'); 
+var day3 = moment().add(3, 'days').format('l');
+var day4 = moment().add(4, 'days').format('l');
+var day5 = moment().add(5, 'days').format('l');
+
+
+$("#currentSearch").text(CityDate);
+$("#day1").text(day1); 
+$("#day2").text(day2); 
+$("#day3").text(day3);
+$("#day4").text(day4);
+$("#day5").text(day5); 
 
 //////////////////////////////////////////////////////
 ////////////    Search Functionality   ///////////////

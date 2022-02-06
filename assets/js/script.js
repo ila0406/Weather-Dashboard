@@ -106,7 +106,7 @@ fetch(queryGeoURL)
 //OneCall API https://openweathermap.org/api/one-call-api
 var newLat = '39.101';
 var newLon = '-84.512';
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
+var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
 //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
 
@@ -124,10 +124,10 @@ fetch(queryOneCallURL)
         var humdity = document.createElement('li');
         var uvIndex = document.createElement('li');
         var windSpeed = document.createElement('li');
-        var dailyConditions = document.createElement('p');
-        var dailytemp = document.createElement('p');
-        var dailyhumdity = document.createElement('p');
-        var dailywindSpeed = document.createElement('p');
+        var dailyConditions = document.createElement('td');
+        var dailytemp = document.createElement('td');
+        var dailyhumdity = document.createElement('td');
+        var dailywindSpeed = document.createElement('td');
         temp.textContent = data.current.temp;
         conditions.textContent = data.current.weather[0].description;
         humdity.textContent = data.current.humidity;
@@ -165,8 +165,24 @@ fetch(queryOneCallURL)
             console.log(dailyhumdity);
         }
 
+        //5-day Forcast weather loops
+        var forecastDay = 0;
+        while (forecastDay < 6){
+            var tableBody = document.getElementById('forecast-table');
+            var createTableRow = document.createElement('tr');
+            //5-day - daily Conditions
+            for (var i = 1; i < 6; i++) { 
+                var tableData = document.createElement('td');
+                dailyConditions.textContent = data.daily[i].weather[0].description;
+                console.log(dailyConditions);
+                tableData.appendChild(dailyConditions);
+                createTableRow.appendChild(tableData);
+                tableBody.appendChild(createTableRow);
+            }
+            forecastDay++;
+            console.log(forecastDay);
 
-
+        }
     })
     
     // var queryCovidURL = 'https://corona.lmao.ninja/v2/countries?yesterday=&sort=?&limit=1';

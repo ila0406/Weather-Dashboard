@@ -80,7 +80,7 @@ fetch(queryGeoURL)
     })
 
 
-    //OneCall API https://openweathermap.org/api/one-call-api
+//OneCall API https://openweathermap.org/api/one-call-api
 var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=' + apiKey;
 var weatherDetails = document.querySelector('ul');
 
@@ -90,11 +90,11 @@ fetch(queryOneCallURL)
     })
     .then(function (data) {
         // console.log(data);
-        var temp = document.createElement('p');
-        var conditions = document.createElement('p');
-        var humdity = document.createElement('p');
-        var uvIndex = document.createElement('p');
-        var windSpeed = document.createElement('p');
+        var temp = document.createElement('li');
+        var conditions = document.createElement('li');
+        var humdity = document.createElement('li');
+        var uvIndex = document.createElement('li');
+        var windSpeed = document.createElement('li');
         temp.textContent = data.current.temp;
         conditions.textContent = data.current.weather[0].description;
         humdity.textContent = data.current.humidity;
@@ -107,21 +107,16 @@ fetch(queryOneCallURL)
         console.log(windSpeed);
 
         //for (var i = 0; i < data.length; i++) {
-            var listItem1 = document.createElement('li');
-            var listItem2 = document.createElement('li');
-            var listItem3 = document.createElement('li');
-            var listItem4 = document.createElement('li');
-            var listItem5 = document.createElement('li');
-            listItem1.textContent = data.current.temp;
-            weatherDetails.appendChild(listItem1);
-            listItem2.textContent = data.current.weather[0].description;
-            weatherDetails.appendChild(listItem2);
-            listItem3.textContent = data.current.humidity;
-            weatherDetails.appendChild(listItem3);
-            listItem4.textContent = data.current.uvi;
-            weatherDetails.appendChild(listItem4);
-            listItem5.textContent = data.current.wind_speed;
-            weatherDetails.appendChild(listItem5);
+            temp.textContent = data.current.temp;
+            weatherDetails.appendChild(temp);
+            conditions.textContent = data.current.weather[0].description;
+            weatherDetails.appendChild(conditions);
+            humdity.textContent = data.current.humidity;
+            weatherDetails.appendChild(humdity);
+            uvIndex.textContent = data.current.uvi;
+            weatherDetails.appendChild(uvIndex);
+            windSpeed.textContent = data.current.wind_speed;
+            weatherDetails.appendChild(windSpeed);
           //}
     })
     

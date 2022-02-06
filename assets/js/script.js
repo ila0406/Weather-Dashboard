@@ -81,7 +81,13 @@ fetch(queryGeoURL)
 
 
 //OneCall API https://openweathermap.org/api/one-call-api
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
+var newLat = '39.101';
+var newLon = '-84.512';
+var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
+//var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
+//var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
+
+console.log(queryOneCallURL);
 var weatherDetails = document.querySelector('ul');
 
 fetch(queryOneCallURL)
@@ -89,7 +95,7 @@ fetch(queryOneCallURL)
         return res.json()
     })
     .then(function (data) {
-        console.log(data);
+        // console.log(data);
         var temp = document.createElement('li');
         var conditions = document.createElement('li');
         var humdity = document.createElement('li');
@@ -105,11 +111,11 @@ fetch(queryOneCallURL)
         uvIndex.textContent = data.current.uvi;
         windSpeed.textContent = data.current.wind_speed;
         
-        console.log(temp);
-        console.log(conditions);
-        console.log(humdity);
-        console.log(uvIndex);
-        console.log(windSpeed);
+        // console.log(temp);
+        // console.log(conditions);
+        // console.log(humdity);
+        // console.log(uvIndex);
+        // console.log(windSpeed);
        
 
         //for (var i = 0; i < data.length; i++) {

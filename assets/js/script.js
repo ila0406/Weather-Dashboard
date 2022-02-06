@@ -1,3 +1,15 @@
+// Variables for time
+var currentCity = 'Cincinnati';
+var todayDate = moment().format('l');
+var CityDate = currentCity + ' - ' + todayDate;
+$("#currentSearch").text(CityDate);
+
+var day1 = moment().add(1, 'days').format('l'); 
+var day2 = moment().add(2, 'days').format('l'); 
+var day3 = moment().add(3, 'days').format('l'); 
+var day4 = moment().add(4, 'days').format('l'); 
+var day5 = moment().add(5, 'days').format('l'); 
+
 //////////////////////////////////////////////////////
 ////////////    Search Functionality   ///////////////
 //////////////////////////////////////////////////////

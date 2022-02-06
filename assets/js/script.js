@@ -82,6 +82,7 @@ fetch(queryGeoURL)
 
     //OneCall API https://openweathermap.org/api/one-call-api
 var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=' + apiKey;
+var weatherDetails = document.querySelector('ul');
 
 fetch(queryOneCallURL)
     .then(function (res)   {
@@ -104,7 +105,41 @@ fetch(queryOneCallURL)
         console.log(humdity);
         console.log(uvIndex);
         console.log(windSpeed);
+
+        //for (var i = 0; i < data.length; i++) {
+            var listItem1 = document.createElement('li');
+            var listItem2 = document.createElement('li');
+            var listItem3 = document.createElement('li');
+            var listItem4 = document.createElement('li');
+            var listItem5 = document.createElement('li');
+            listItem1.textContent = data.current.temp;
+            weatherDetails.appendChild(listItem1);
+            listItem2.textContent = data.current.weather[0].description;
+            weatherDetails.appendChild(listItem2);
+            listItem3.textContent = data.current.humidity;
+            weatherDetails.appendChild(listItem3);
+            listItem4.textContent = data.current.uvi;
+            weatherDetails.appendChild(listItem4);
+            listItem5.textContent = data.current.wind_speed;
+            weatherDetails.appendChild(listItem5);
+          //}
     })
+    
+    // var queryCovidURL = 'https://corona.lmao.ninja/v2/countries?yesterday=&sort=?&limit=1';
+    // //console.log(queryCovidURL);
+    // fetch(queryCovidURL)
+    //     .then(function (res)   {
+    //         return res.json()
+    //     })
+    // .then(function (data) {
+    //     console.log(data);
+    //     for(var i=0; i<data.length; i++){
+    //         var searchCity = data[i].country;
+    //         var searchTodayCount = data[i].todayCases;
+    //         console.log(searchCity);
+    //         console.log(searchTodayCount);
+    //     }
+    // })
 
 
 // I had checked out https://stackoverflow.com/questions/65373299/how-can-i-use-city-name-instead-of-lat-and-log-in-openweather-api and found one of the comments said, You will need to make 2 API calls. 

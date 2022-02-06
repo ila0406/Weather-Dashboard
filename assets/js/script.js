@@ -29,22 +29,16 @@ function searchForCity(event) {
     event.preventDefault();
 
     var searchInput = document.getElementById("search").value;
+    CityDate = searchInput + ' (' + todayDate + ')';
+    $("#currentSearch").text(CityDate);
 
     if (!searchInput) {
         console.error('You need a search input value!');
         return;
     }
 
-    //var queryString = './search-results.html?q=' + searchInput + '&format=';
-    // var queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
-    
-    console.log(searchInput);
-    currentCity = searchInput;
-    CityDate = currentCity + ' (' + todayDate + ')';
-    $("#currentSearch").text(CityDate);
-
     // Geocoding API https://openweathermap.org/api/geocoding-api
-    var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + currentCity + '&limit=1&appid=' + apiKey;
+    var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
     
     fetch(queryGeoURL)
         .then(function (res)   {
@@ -114,71 +108,75 @@ searchButton.addEventListener('click', searchForCity);
 
 
 //OneCall API https://openweathermap.org/api/one-call-api
-var newLat = '39.101';
-var newLon = '-84.512';
-var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
-//var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey;
-//var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey;
+//function getWeather(){
+ 
+    var newLat = '39.101';
+    var newLon = '-84.512';
+    var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
+    //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
+    //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.101&lon=-84.512&appid=' + apiKey +'&units=imperial';
 
-console.log(queryOneCallURL);
-var weatherDetails = document.querySelector('ul');
+    console.log(queryOneCallURL);
+    var weatherDetails = document.querySelector('ul');
 
-fetch(queryOneCallURL)
-    .then(function (res)   {
-        return res.json()
-    })
-    .then(function (data) {
-        // console.log(data);
-        var temp = document.createElement('li');
-        var conditions = document.createElement('li');
-        var humdity = document.createElement('li');
-        var uvIndex = document.createElement('li');
-        var windSpeed = document.createElement('li');
-        var dailyConditions = document.createElement('td');
-        var dailytemp = document.createElement('td');
-        var dailyhumdity = document.createElement('td');
-        var dailywindSpeed = document.createElement('td');
-        temp.textContent = data.current.temp;
-        conditions.textContent = data.current.weather[0].description;
-        humdity.textContent = data.current.humidity;
-        uvIndex.textContent = data.current.uvi;
-        windSpeed.textContent = data.current.wind_speed;
-        
-        // Weather Forecast for Today 
-        temp.textContent = data.current.temp;
-        weatherDetails.appendChild(temp);
-        windSpeed.textContent = data.current.wind_speed;
-        weatherDetails.appendChild(windSpeed);
-        humdity.textContent = data.current.humidity;
-        weatherDetails.appendChild(humdity);
-        uvIndex.textContent = data.current.uvi;
-        weatherDetails.appendChild(uvIndex);
-        conditions.textContent = data.current.weather[0].description;
-        weatherDetails.appendChild(conditions);
+    fetch(queryOneCallURL)
+        .then(function (res)   {
+            return res.json()
+        })
+        .then(function (data) {
+            // console.log(data);
+            var temp = document.createElement('li');
+            var conditions = document.createElement('li');
+            var humdity = document.createElement('li');
+            var uvIndex = document.createElement('li');
+            var windSpeed = document.createElement('li');
+            var dailyConditions = document.createElement('td');
+            var dailytemp = document.createElement('td');
+            var dailyhumdity = document.createElement('td');
+            var dailywindSpeed = document.createElement('td');
+            temp.textContent = data.current.temp;
+            conditions.textContent = data.current.weather[0].description;
+            humdity.textContent = data.current.humidity;
+            uvIndex.textContent = data.current.uvi;
+            windSpeed.textContent = data.current.wind_speed;
+            
+            // Weather Forecast for Today 
+            temp.textContent = data.current.temp;
+            weatherDetails.appendChild(temp);
+            windSpeed.textContent = data.current.wind_speed;
+            weatherDetails.appendChild(windSpeed);
+            humdity.textContent = data.current.humidity;
+            weatherDetails.appendChild(humdity);
+            uvIndex.textContent = data.current.uvi;
+            weatherDetails.appendChild(uvIndex);
+            conditions.textContent = data.current.weather[0].description;
+            weatherDetails.appendChild(conditions);
 
-        
-        var trConditions;
-        var trTemp;
-        var trWind;
-        var trHumdity;
-        
-        // Weather Forecast for next 5 Days 
-        for (var i = 1; i < 6; i++) {  
-            trConditions = '#conditions'+ [i];
-            trTemp = '#temp'+ [i];
-            trWind = '#wind'+ [i];
-            trHumdity = '#humdity'+ [i];
-            dailyConditions.textContent = data.daily[i].weather[0].description;
-            $(trConditions).text(dailyConditions.textContent);
-            dailytemp.textContent = data.daily[i].temp.day;
-            $(trTemp).text(dailytemp.textContent);
-            dailywindSpeed.textContent = data.daily[i].wind_speed;
-            $(trWind).text(dailywindSpeed.textContent);
-            dailyhumdity.textContent = data.daily[i].humidity;
-            $(trHumdity).text(dailyhumdity.textContent);
-        }
+            
+            var trConditions;
+            var trTemp;
+            var trWind;
+            var trHumdity;
+            
+            // Weather Forecast for next 5 Days 
+            for (var i = 1; i < 6; i++) {  
+                trConditions = '#conditions'+ [i];
+                trTemp = '#temp'+ [i];
+                trWind = '#wind'+ [i];
+                trHumdity = '#humdity'+ [i];
+                dailyConditions.textContent = data.daily[i].weather[0].description;
+                $(trConditions).text(dailyConditions.textContent);
+                dailytemp.textContent = data.daily[i].temp.day;
+                $(trTemp).text(dailytemp.textContent);
+                dailywindSpeed.textContent = data.daily[i].wind_speed;
+                $(trWind).text(dailywindSpeed.textContent);
+                dailyhumdity.textContent = data.daily[i].humidity;
+                $(trHumdity).text(dailyhumdity.textContent);
+            }
 
-    })
+        })
+
+//}
 
 // I had checked out https://stackoverflow.com/questions/65373299/how-can-i-use-city-name-instead-of-lat-and-log-in-openweather-api and found one of the comments said, You will need to make 2 API calls. 
 // Use the lat, lon value from the first API to call the second API.

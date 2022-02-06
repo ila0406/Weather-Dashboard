@@ -80,7 +80,7 @@ function handleSearchFormSubmit(event) {
 
 
 //Geocoding API https://openweathermap.org/api/geocoding-api
-var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=Cincinnati&limit=1&appid=' + apiKey;
+var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + 'Cincinnati' + '&limit=1&appid=' + apiKey;
 
 fetch(queryGeoURL)
     .then(function (res)   {
@@ -134,88 +134,41 @@ fetch(queryOneCallURL)
         uvIndex.textContent = data.current.uvi;
         windSpeed.textContent = data.current.wind_speed;
         
-        // console.log(temp);
-        // console.log(conditions);
-        // console.log(humdity);
-        // console.log(uvIndex);
-        // console.log(windSpeed);
-       
+        // Weather Forecast for Today 
+        temp.textContent = data.current.temp;
+        weatherDetails.appendChild(temp);
+        windSpeed.textContent = data.current.wind_speed;
+        weatherDetails.appendChild(windSpeed);
+        humdity.textContent = data.current.humidity;
+        weatherDetails.appendChild(humdity);
+        uvIndex.textContent = data.current.uvi;
+        weatherDetails.appendChild(uvIndex);
+        conditions.textContent = data.current.weather[0].description;
+        weatherDetails.appendChild(conditions);
 
-        //for (var i = 0; i < data.length; i++) {
-            temp.textContent = data.current.temp;
-            weatherDetails.appendChild(temp);
-            windSpeed.textContent = data.current.wind_speed;
-            weatherDetails.appendChild(windSpeed);
-            humdity.textContent = data.current.humidity;
-            weatherDetails.appendChild(humdity);
-            uvIndex.textContent = data.current.uvi;
-            weatherDetails.appendChild(uvIndex);
-            conditions.textContent = data.current.weather[0].description;
-            weatherDetails.appendChild(conditions);
-          //}
         
         var trConditions;
         var trTemp;
         var trWind;
         var trHumdity;
-          
+        
+        // Weather Forecast for next 5 Days 
         for (var i = 1; i < 6; i++) {  
             trConditions = '#conditions'+ [i];
             trTemp = '#temp'+ [i];
             trWind = '#wind'+ [i];
             trHumdity = '#humdity'+ [i];
-            console.log(trConditions);
             dailyConditions.textContent = data.daily[i].weather[0].description;
-            //console.log(dailyConditions);
             $(trConditions).text(dailyConditions.textContent);
             dailytemp.textContent = data.daily[i].temp.day;
             $(trTemp).text(dailytemp.textContent);
-            //console.log(dailytemp);
             dailywindSpeed.textContent = data.daily[i].wind_speed;
             $(trWind).text(dailywindSpeed.textContent);
-            //console.log(dailywindSpeed);
             dailyhumdity.textContent = data.daily[i].humidity;
             $(trHumdity).text(dailyhumdity.textContent);
-            //console.log(dailyhumdity);
-            console.log(i);
         }
 
-        // //5-day Forcast weather loops
-        // var forecastDay = 0;
-        // while (forecastDay < 6){
-        //     var tableBody = document.getElementById('forecast-table');
-        //     var createTableRow = document.createElement('tr');
-        //     //5-day - daily Conditions
-        //     for (var i = 1; i < 6; i++) { 
-        //         var tableData = document.createElement('td');
-        //         dailyConditions.textContent = data.daily[i].weather[0].description;
-        //         console.log(dailyConditions);
-        //         tableData.appendChild(dailyConditions);
-        //         createTableRow.appendChild(tableData);
-        //         tableBody.appendChild(createTableRow);
-        //     }
-        //     forecastDay++;
-        //     console.log(forecastDay);
-
-        // }
     })
-    
-    // var queryCovidURL = 'https://corona.lmao.ninja/v2/countries?yesterday=&sort=?&limit=1';
-    // //console.log(queryCovidURL);
-    // fetch(queryCovidURL)
-    //     .then(function (res)   {
-    //         return res.json()
-    //     })
-    // .then(function (data) {
-    //     console.log(data);
-    //     for(var i=0; i<data.length; i++){
-    //         var searchCity = data[i].country;
-    //         var searchTodayCount = data[i].todayCases;
-    //         console.log(searchCity);
-    //         console.log(searchTodayCount);
-    //     }
-    // })
-
 
 // I had checked out https://stackoverflow.com/questions/65373299/how-can-i-use-city-name-instead-of-lat-and-log-in-openweather-api and found one of the comments said, You will need to make 2 API calls. 
 // Use the lat, lon value from the first API to call the second API.

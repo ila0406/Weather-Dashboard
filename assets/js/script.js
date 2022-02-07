@@ -1,6 +1,3 @@
-//////////////////////////////////////////////////////
-////////////    Time & Day             ///////////////
-//////////////////////////////////////////////////////
 var currentCity = 'Today is';
 var todayDate = moment().format('l');
 var CityDate = currentCity + ' (' + todayDate + ') ';
@@ -19,10 +16,6 @@ $("#day3").text(day3);
 $("#day4").text(day4);
 $("#day5").text(day5); 
 
-//////////////////////////////////////////////////////
-////////////    Search Functionality   ///////////////
-//////////////////////////////////////////////////////
-
 
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
@@ -30,13 +23,13 @@ var searchButton = document.querySelector(".btn");
 searchButton.addEventListener('click', searchForCity);
 
 
-    var count = localStorage.getItem("count");
-    searchButton.addEventListener("click", function() {
-      if (count < 10) {
-        count++;
-        localStorage.setItem("count", count);
-      }
-    });
+var count = localStorage.getItem("count");
+searchButton.addEventListener("click", function() {
+    if (count < 10) {
+    count++;
+    localStorage.setItem("count", count);
+    }
+});
 
 function searchForCity(event) {
     event.preventDefault();
@@ -52,6 +45,7 @@ function searchForCity(event) {
         return;
     }
     
+    // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)
         .then(function (res)   {
             return res.json()
@@ -62,99 +56,63 @@ function searchForCity(event) {
             var searchState = data[0].state;
             var searchLat = data[0].lat;
             var searchLon = data[0].lon;
-
-            // queryOneCallURL works when inside the searchForCity function
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
+            var weatherDetails = document.querySelector('ul');
             
             // Testing GeoAPI fetch & Output for next API call
-            console.log(queryOneCallURL);
-            console.log('Lat: ' + searchLat + ' Lon: ' + searchLon + ' - For (' + searchCity + ', ' + searchState + ')');
+            // console.log(queryOneCallURL);
+            // console.log('Lat: ' + searchLat + ' Lon: ' + searchLon + ' - For (' + searchCity + ', ' + searchState + ')');
 
-            //getWeather(queryOneCallURL);
-            var weatherDetails = document.querySelector('ul');
+            fetch(queryOneCallURL)
+                .then(function (res)   {
+                    return res.json()
+                })
+                .then(function (data) {
+                    // console.log(data);
+                    // variables for today's forecast
+                    var temp = document.createElement('li');
+                    var humdity = document.createElement('li');
+                    var uvIndex = document.createElement('li');
+                    var windSpeed = document.createElement('li');
+                    //variables for daily
+                    var dailyConditions = document.createElement('td');
+                    var dailytemp = document.createElement('td');
+                    var dailyhumdity = document.createElement('td');
+                    var dailywindSpeed = document.createElement('td');
+                    // variables for 5-day forecast loop
+                    var trConditions;
+                    var trTemp;
+                    var trWind;
+                    var trHumdity;
 
-    fetch(queryOneCallURL)
-        .then(function (res)   {
-            return res.json()
+                    // Weather Forecast for Today 
+                    temp.textContent = data.current.temp;
+                    windSpeed.textContent = data.current.wind_speed;
+                    humdity.textContent = data.current.humidity;
+                    uvIndex.textContent = data.current.uvi;
+
+                    // Set weatherDetails
+                    weatherDetails.appendChild(temp);
+                    weatherDetails.appendChild(windSpeed);
+                    weatherDetails.appendChild(humdity);
+                    weatherDetails.appendChild(uvIndex);
+                    
+                    // Weather Forecast for next 5 Days 
+                    for (var i = 1; i < 6; i++) {  
+                        trConditions = '#conditions'+ [i];
+                        trTemp = '#temp'+ [i];
+                        trWind = '#wind'+ [i];
+                        trHumdity = '#humdity'+ [i];
+                        dailyConditions.textContent = data.daily[i].weather[0].description;
+                        $(trConditions).text(dailyConditions.textContent);
+                        dailytemp.textContent = data.daily[i].temp.day;
+                        $(trTemp).text(dailytemp.textContent);
+                        dailywindSpeed.textContent = data.daily[i].wind_speed;
+                        $(trWind).text(dailywindSpeed.textContent);
+                        dailyhumdity.textContent = data.daily[i].humidity;
+                        $(trHumdity).text(dailyhumdity.textContent);
+                    }
+                })
         })
-        .then(function (data) {
-            // console.log(data);
-            var temp = document.createElement('li');
-            var conditions = document.createElement('li');
-            var humdity = document.createElement('li');
-            var uvIndex = document.createElement('li');
-            var windSpeed = document.createElement('li');
-            var dailyConditions = document.createElement('td');
-            var dailytemp = document.createElement('td');
-            var dailyhumdity = document.createElement('td');
-            var dailywindSpeed = document.createElement('td');
-            temp.textContent = data.current.temp;
-            conditions.textContent = data.current.weather[0].description;
-            humdity.textContent = data.current.humidity;
-            uvIndex.textContent = data.current.uvi;
-            windSpeed.textContent = data.current.wind_speed;
-            
-            // Weather Forecast for Today 
-            temp.textContent = data.current.temp;
-            weatherDetails.appendChild(temp);
-            windSpeed.textContent = data.current.wind_speed;
-            weatherDetails.appendChild(windSpeed);
-            humdity.textContent = data.current.humidity;
-            weatherDetails.appendChild(humdity);
-            uvIndex.textContent = data.current.uvi;
-            weatherDetails.appendChild(uvIndex);
-            conditions.textContent = data.current.weather[0].description;
-            weatherDetails.appendChild(conditions);
-
-            
-            var trConditions;
-            var trTemp;
-            var trWind;
-            var trHumdity;
-            
-            // Weather Forecast for next 5 Days 
-            for (var i = 1; i < 6; i++) {  
-                trConditions = '#conditions'+ [i];
-                trTemp = '#temp'+ [i];
-                trWind = '#wind'+ [i];
-                trHumdity = '#humdity'+ [i];
-                dailyConditions.textContent = data.daily[i].weather[0].description;
-                $(trConditions).text(dailyConditions.textContent);
-                dailytemp.textContent = data.daily[i].temp.day;
-                $(trTemp).text(dailytemp.textContent);
-                dailywindSpeed.textContent = data.daily[i].wind_speed;
-                $(trWind).text(dailywindSpeed.textContent);
-                dailyhumdity.textContent = data.daily[i].humidity;
-                $(trHumdity).text(dailyhumdity.textContent);
-            }
-        })
-        })
-//}
-
-//function getWeather(){
-    //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
-
-    //console.log(queryOneCallURL);
-    
+   
 }
-
-
-// var resultTextEl = document.querySelector('#result-text');
-// var resultContentEl = document.querySelector('#result-content');
-// var searchFormEl = document.querySelector('#search-form');
-
-// function getParams(){
-//     console.log("getParams");
-// }
-
-// function printResults(resultObj) {
-//     console.log(resultObj);
-// }
-
-// function searchApi(query, format) {
-//     console.log("SearchAPI");
-// }
-
-// function handleSearchFormSubmit(event) {
-//     console.log("SearchForm");
-// }

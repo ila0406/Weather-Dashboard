@@ -5,12 +5,14 @@ var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 var weatherScreenEl = document.getElementById("weather-screen");
 
+// Screen to Start
 weatherScreenEl.setAttribute("class", "hide");
-
 $("#currentSearch").text(CityDate);
 
+// Search for Weather
 searchButton.addEventListener('click', searchForCity);
 
+// Begin Weather API calls and displaying Forecast
 function searchForCity(event) {
     event.preventDefault();
 
@@ -72,10 +74,10 @@ function searchForCity(event) {
                     var trHumdity;
 
                     // Weather Forecast for Today 
-                    temp.textContent = data.current.temp;
-                    windSpeed.textContent = data.current.wind_speed;
-                    humdity.textContent = data.current.humidity;
-                    uvIndex.textContent = data.current.uvi;
+                    temp.textContent = 'Temp: ' + data.current.temp + ' °F';
+                    windSpeed.textContent = 'Wind: ' +  data.current.wind_speed + ' ';
+                    humdity.textContent = 'Humidity: ' +  data.current.humidity + ' MPH';
+                    uvIndex.textContent = 'UV Index: ' +  data.current.uvi + ' %';
 
                     // Set weatherDetails
                     weatherDetails.appendChild(temp);
@@ -103,11 +105,11 @@ function searchForCity(event) {
                         trHumdity = '#humdity'+ [i];
                         dailyConditions.textContent = data.daily[i].weather[0].description;
                         $(trConditions).text(dailyConditions.textContent);
-                        dailytemp.textContent = data.daily[i].temp.day;
+                        dailytemp.textContent = data.daily[i].temp.day + ' °F';
                         $(trTemp).text(dailytemp.textContent);
-                        dailywindSpeed.textContent = data.daily[i].wind_speed;
+                        dailywindSpeed.textContent = data.daily[i].wind_speed + ' MPH';
                         $(trWind).text(dailywindSpeed.textContent);
-                        dailyhumdity.textContent = data.daily[i].humidity;
+                        dailyhumdity.textContent = data.daily[i].humidity + ' %';
                         $(trHumdity).text(dailyhumdity.textContent);
                     }
                 })

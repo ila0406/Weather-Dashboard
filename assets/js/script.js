@@ -69,21 +69,13 @@ function searchForCity(event) {
                     return res.json()
                 })
                 .then(function (data) {
-                    // Icon data
+                    // Today's Icon data
                     var wiconEl = document.createElement("img");
                     var currentIcon = data.current.weather[0].icon;
                     var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
                     console.log(iconUrl);
-                    $(wiconEl).attr("id", "wicon");
-                    $(wiconEl).attr("src", iconUrl);
-                    $(wiconEl).attr("alt", "weather icon");
                     $('#icon0').attr("src", iconUrl);
-                    // var uvIndexColor = document.getElementById("uvIndex0");
-                    // uvIndexColor.setAttribute("class", "uvLow"); 
-                    // $(wiconEl).attr("id", "wicon");
-                    // $(wiconEl).attr("src", iconUrl);
-                    // $(wiconEl).attr("alt", "weather icon");
-
+                   
                     // variables for today's forecast
                     var icon = document.createElement('td');
                     var temp = document.createElement('td');
@@ -138,6 +130,13 @@ function searchForCity(event) {
                     $('#day3').text(day3);
                     $('#day4').text(day4);
                     $('#day5').text(day5); 
+
+                    // forecast Icon data
+                    var dailywiconEl = document.createElement("img");
+                    var dailycurrentIcon = data.daily[1].weather[0].icon;
+                    var dailyiconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
+                    console.log(dailyiconUrl);
+                    $('#icon1').attr("src", dailyiconUrl);
                     
                     // Weather Forecast for next 5 Days 
                     for (var i = 1; i < 6; i++) {  
@@ -146,8 +145,8 @@ function searchForCity(event) {
                         trWind = '#wind'+ [i];
                         trHumdity = '#humdity'+ [i];
                         // dailyConditions.textContent = data.daily[i].weather[0].description;
-                        dailyConditions.textContent = data.daily[i].weather[0].icon;
-                        $(trConditions).text(dailyConditions.textContent);
+                        // dailyConditions.textContent = data.daily[i].weather[0].icon;
+                        // $(trConditions).text(dailyConditions.textContent);
                         dailytemp.textContent = data.daily[i].temp.day + ' °F';
                         $(trTemp).text(dailytemp.textContent);
                         dailywindSpeed.textContent = data.daily[i].wind_speed + ' MPH';

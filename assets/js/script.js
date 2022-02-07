@@ -4,6 +4,7 @@ var CityDate = currentCity + ' (' + todayDate + ') ';
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 var weatherScreenEl = document.getElementById("weather-screen");
+var uvIndexColor = 'green';
 var Localstorage = localStorage;
 var cities = [];
 
@@ -87,6 +88,26 @@ function searchForCity(event) {
                     humdity.textContent = 'Humidity: ' +  data.current.humidity + ' %';
                     uvIndex.textContent = 'UV Index: ' +  data.current.uvi + ' ';
 
+                    console.log(data.current.uvi);
+                    var checkUV = data.current.uvi;
+
+                    if (checkUV == 0 || checkUV <= 2) {
+                        uvIndexColor = '65CC1F';
+                    }
+                    else if (checkUV > 2 && checkUV <=5)   {
+                        uvIndexColor = 'FFDE33';
+                    }
+                    else if (checkUV > 2 && checkUV <=5)   {
+                        uvIndexColor = 'FEA500';
+                    }
+                    else if (checkUV > 2 && checkUV <=5)   {
+                        uvIndexColor = 'E60072';
+                    }
+                    else    {
+                        uvIndexColor = '9671FF';
+                    }
+                    console.log(uvIndexColor);
+
                     // Set weatherDetails
                     weatherDetails.appendChild(temp);
                     weatherDetails.appendChild(windSpeed);
@@ -105,7 +126,8 @@ function searchForCity(event) {
                         trTemp = '#temp'+ [i];
                         trWind = '#wind'+ [i];
                         trHumdity = '#humdity'+ [i];
-                        dailyConditions.textContent = data.daily[i].weather[0].description;
+                        // dailyConditions.textContent = data.daily[i].weather[0].description;
+                        dailyConditions.textContent = data.daily[i].weather[0].icon;
                         $(trConditions).text(dailyConditions.textContent);
                         dailytemp.textContent = data.daily[i].temp.day + ' °F';
                         $(trTemp).text(dailytemp.textContent);

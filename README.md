@@ -16,24 +16,26 @@ The following images shows the mokup of the web application's appearance and fun
 
 ### Search for a city
 I am presented with current and future conditions for that city and that city is added to the search history
-![](./assets/images/xxxx.png)
+![](./assets/images/Weather-Dashboard.png)
 
 ### Current Weather Conditions in City
 I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-![](./assets/images/xxxx.png)
+![](./assets/images/Current.png)
 
 ### UV index
 I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-![](./assets/images/xxxx.png)
+![Low](./assets/images/UVgreen.png)
+![Moderate](./assets/images/UVyellow.png)
+![Extreme](./assets/images/Uvpurple.png)
 
 ### Future weather conditions for that city
 I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-![](./assets/images/xxxx.png)
+![5-day Forecast](./assets/images/5day.png)
 
 
 ### Search vs Click on City
 I am again presented with current and future conditions for that city
-![](./assets/images/xxxx.png)
+![](./assets/images/Search History.png)
 
 ## Accessibility
 Lighthouse report on accesibility

@@ -69,6 +69,21 @@ function searchForCity(event) {
                     return res.json()
                 })
                 .then(function (data) {
+                    // Icon data
+                    var wiconEl = document.createElement("img");
+                    var currentIcon = data.current.weather[0].icon;
+                    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
+                    console.log(iconUrl);
+                    $(wiconEl).attr("id", "wicon");
+                    $(wiconEl).attr("src", iconUrl);
+                    $(wiconEl).attr("alt", "weather icon");
+                    $('#icon0').attr("src", iconUrl);
+                    // var uvIndexColor = document.getElementById("uvIndex0");
+                    // uvIndexColor.setAttribute("class", "uvLow"); 
+                    // $(wiconEl).attr("id", "wicon");
+                    // $(wiconEl).attr("src", iconUrl);
+                    // $(wiconEl).attr("alt", "weather icon");
+
                     // variables for today's forecast
                     var icon = document.createElement('td');
                     var temp = document.createElement('td');
@@ -93,7 +108,7 @@ function searchForCity(event) {
                     var day5 = moment().add(5, 'days').format('l');
 
                     // Weather Forecast for Today
-                    $('#icon0').text('Conditions: ' + data.current.weather[0].icon); 
+                    // $('#icon0').text('Conditions: ' + data.current.weather[0].icon); 
                     $('#temp0').text('Temp: ' + data.current.temp + ' °F');
                     $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
                     $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');

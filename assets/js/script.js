@@ -83,12 +83,12 @@ function searchForCity(event) {
                     var uvIndex = document.createElement('td');
                     var windSpeed = document.createElement('td');
                     //variables for daily loop
-                    var dailyConditions = document.createElement('td');
+                    var dailyIcons = document.createElement('td');
                     var dailytemp = document.createElement('td');
                     var dailyhumdity = document.createElement('td');
                     var dailywindSpeed = document.createElement('td');
                     // variables for 5-day forecast loop
-                    var trConditions;
+                    var trIcons;
                     var trTemp;
                     var trWind;
                     var trHumdity;
@@ -135,20 +135,38 @@ function searchForCity(event) {
                     var dailywiconEl = document.createElement("img");
                     var dailycurrentIcon = data.daily[1].weather[0].icon;
                     var dailyiconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
-                    console.log(dailyiconUrl);
-                    $('#icon1').attr("src", dailyiconUrl);
+                    // console.log(dailyiconUrl);
+                    // $('#icon1').attr("src", dailyiconUrl);
+                    // $('#icon2').attr("src", dailyiconUrl);
+                    // $('#icon3').attr("src", dailyiconUrl);
+                    // $('#icon4').attr("src", dailyiconUrl);
+                    // $('#icon5').attr("src", dailyiconUrl);
                     
                     // Weather Forecast for next 5 Days 
                     for (var i = 1; i < 6; i++) {  
-                        trConditions = '#conditions'+ [i];
+                        // trConditions = '#conditions'+ [i];
+                        trIcons = '#icon'+ [i];
                         trTemp = '#temp'+ [i];
                         trWind = '#wind'+ [i];
                         trHumdity = '#humdity'+ [i];
+
+                        
                         // dailyConditions.textContent = data.daily[i].weather[0].description;
                         // dailyConditions.textContent = data.daily[i].weather[0].icon;
                         // $(trConditions).text(dailyConditions.textContent);
+                        dailycurrentIcon = data.daily[i].weather[0].icon;
+                        console.log(dailycurrentIcon);
+                        dailyiconUrl = "http://openweathermap.org/img/wn/" + dailycurrentIcon + ".png";
+                        console.log(dailyiconUrl);
+                        console.log(trIcons);
+                        $(trIcons).attr("src", dailyiconUrl);
+
+                        dailyIcons.textContent = data.daily[i].weather[0].icon;
+                        $(trIcons).text(dailyIcons.textContent);
+
                         dailytemp.textContent = data.daily[i].temp.day + ' °F';
                         $(trTemp).text(dailytemp.textContent);
+                        
                         dailywindSpeed.textContent = data.daily[i].wind_speed + ' MPH';
                         $(trWind).text(dailywindSpeed.textContent);
                         dailyhumdity.textContent = data.daily[i].humidity + ' %';

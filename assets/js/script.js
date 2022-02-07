@@ -4,6 +4,8 @@ var CityDate = currentCity + ' (' + todayDate + ') ';
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 var weatherScreenEl = document.getElementById("weather-screen");
+var Localstorage = localStorage;
+var cities = [];
 
 // Screen to Start
 weatherScreenEl.setAttribute("class", "hide");
@@ -18,6 +20,11 @@ function searchForCity(event) {
 
     var searchInput = document.getElementById("search").value;
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
+
+    // console.log(searchInput);
+    cities.push(searchInput);
+    localStorage.setItem("cities", JSON.stringify(cities));
+    var citiesArray = JSON.parse(Localstorage.getItem("cities"));
 
     CityDate = searchInput + ' (' + todayDate + ')';
     $("#currentSearch").text(CityDate);
@@ -42,11 +49,6 @@ function searchForCity(event) {
             var searchLon = data[0].lon;
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
             var weatherDetails = document.querySelector('ul');
-            
-            // var Localstorage = localStorage;
-            // cities.push(citySearchInput.value);
-            // localStorage.setItem("cities", JSON.stringify(cities));
-            // var citiesArray = JSON.parse(Localstorage.getItem("cities"));
 
             // Testing GeoAPI fetch & Output for next API call
             // console.log(queryOneCallURL);

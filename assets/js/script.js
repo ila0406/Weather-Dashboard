@@ -1,35 +1,15 @@
 var currentCity = 'Today is';
 var todayDate = moment().format('l');
 var CityDate = currentCity + ' (' + todayDate + ') ';
-
-var day1 = moment().add(1, 'days').format('l');
-var day2 = moment().add(2, 'days').format('l'); 
-var day3 = moment().add(3, 'days').format('l');
-var day4 = moment().add(4, 'days').format('l');
-var day5 = moment().add(5, 'days').format('l');
-
-
-$("#currentSearch").text(CityDate);
-$("#day1").text(day1); 
-$("#day2").text(day2); 
-$("#day3").text(day3);
-$("#day4").text(day4);
-$("#day5").text(day5); 
-
-
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
+var weatherScreenEl = document.getElementById("weather-screen");
+
+weatherScreenEl.setAttribute("class", "hide");
+
+$("#currentSearch").text(CityDate);
 
 searchButton.addEventListener('click', searchForCity);
-
-
-var count = localStorage.getItem("count");
-searchButton.addEventListener("click", function() {
-    if (count < 10) {
-    count++;
-    localStorage.setItem("count", count);
-    }
-});
 
 function searchForCity(event) {
     event.preventDefault();
@@ -45,6 +25,8 @@ function searchForCity(event) {
         return;
     }
     
+    weatherScreenEl.removeAttribute("class");
+
     // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)
         .then(function (res)   {
@@ -59,6 +41,11 @@ function searchForCity(event) {
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
             var weatherDetails = document.querySelector('ul');
             
+            // var Localstorage = localStorage;
+            // cities.push(citySearchInput.value);
+            // localStorage.setItem("cities", JSON.stringify(cities));
+            // var citiesArray = JSON.parse(Localstorage.getItem("cities"));
+
             // Testing GeoAPI fetch & Output for next API call
             // console.log(queryOneCallURL);
             // console.log('Lat: ' + searchLat + ' Lon: ' + searchLon + ' - For (' + searchCity + ', ' + searchState + ')');
@@ -68,7 +55,6 @@ function searchForCity(event) {
                     return res.json()
                 })
                 .then(function (data) {
-                    // console.log(data);
                     // variables for today's forecast
                     var temp = document.createElement('li');
                     var humdity = document.createElement('li');
@@ -96,6 +82,18 @@ function searchForCity(event) {
                     weatherDetails.appendChild(windSpeed);
                     weatherDetails.appendChild(humdity);
                     weatherDetails.appendChild(uvIndex);
+
+                    var day1 = moment().add(1, 'days').format('l');
+                    var day2 = moment().add(2, 'days').format('l'); 
+                    var day3 = moment().add(3, 'days').format('l');
+                    var day4 = moment().add(4, 'days').format('l');
+                    var day5 = moment().add(5, 'days').format('l');
+
+                    $("#day1").text(day1); 
+                    $("#day2").text(day2); 
+                    $("#day3").text(day3);
+                    $("#day4").text(day4);
+                    $("#day5").text(day5); 
                     
                     // Weather Forecast for next 5 Days 
                     for (var i = 1; i < 6; i++) {  

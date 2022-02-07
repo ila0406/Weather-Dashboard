@@ -17,15 +17,12 @@ searchButton.addEventListener('click', searchForCity);
 // Begin Weather API calls and displaying Forecast
 function searchForCity(event) {
     event.preventDefault();
+    weatherScreenEl.removeAttribute("class");
 
     var searchInput = document.getElementById("search").value;
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
 
-    // console.log(searchInput);
-    cities.push(searchInput);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    var citiesArray = JSON.parse(Localstorage.getItem("cities"));
-
+    //Update Header and display
     CityDate = searchInput + ' (' + todayDate + ')';
     $("#currentSearch").text(CityDate);
 
@@ -33,8 +30,11 @@ function searchForCity(event) {
         console.error('You need a search input value!');
         return;
     }
-    
-    weatherScreenEl.removeAttribute("class");
+
+    // Store searched cities in Local Storage for future use
+    cities.push(searchInput);
+    localStorage.setItem("cities", JSON.stringify(cities));
+    var citiesArray = JSON.parse(Localstorage.getItem("cities"));
 
     // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)
@@ -64,7 +64,7 @@ function searchForCity(event) {
                     var humdity = document.createElement('li');
                     var uvIndex = document.createElement('li');
                     var windSpeed = document.createElement('li');
-                    //variables for daily
+                    //variables for daily loop
                     var dailyConditions = document.createElement('td');
                     var dailytemp = document.createElement('td');
                     var dailyhumdity = document.createElement('td');
@@ -74,6 +74,12 @@ function searchForCity(event) {
                     var trTemp;
                     var trWind;
                     var trHumdity;
+                    // variables for dates of 5-day forecast
+                    var day1 = moment().add(1, 'days').format('l');
+                    var day2 = moment().add(2, 'days').format('l'); 
+                    var day3 = moment().add(3, 'days').format('l');
+                    var day4 = moment().add(4, 'days').format('l');
+                    var day5 = moment().add(5, 'days').format('l');
 
                     // Weather Forecast for Today 
                     temp.textContent = 'Temp: ' + data.current.temp + ' °F';
@@ -86,12 +92,6 @@ function searchForCity(event) {
                     weatherDetails.appendChild(windSpeed);
                     weatherDetails.appendChild(humdity);
                     weatherDetails.appendChild(uvIndex);
-
-                    var day1 = moment().add(1, 'days').format('l');
-                    var day2 = moment().add(2, 'days').format('l'); 
-                    var day3 = moment().add(3, 'days').format('l');
-                    var day4 = moment().add(4, 'days').format('l');
-                    var day5 = moment().add(5, 'days').format('l');
 
                     $("#day1").text(day1); 
                     $("#day2").text(day2); 

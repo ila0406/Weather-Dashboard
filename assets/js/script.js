@@ -43,6 +43,13 @@ function searchForCity(event) {
     localStorage.setItem("cities", JSON.stringify(cities));
     var citiesArray = JSON.parse(Localstorage.getItem("cities"));
 
+    var repoList = document.querySelector('ul');
+    var newCity = citiesArray.length - 1;
+        console.log(citiesArray[newCity]);
+        var listItem = document.createElement('li');
+        listItem.textContent = citiesArray[newCity];
+        repoList.appendChild(listItem);
+
     // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)
         .then(function (res)   {
@@ -55,7 +62,7 @@ function searchForCity(event) {
             var searchLat = data[0].lat;
             var searchLon = data[0].lon;
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
-            var weatherDetails = document.querySelector('ul');
+            //var weatherDetails = document.querySelector('ul');
 
             fetch(queryOneCallURL)
                 .then(function (res)   {
@@ -137,3 +144,10 @@ function searchForCity(event) {
         })
    
 }
+
+function clearScores() {
+    window.localStorage.clear();
+    window.location.reload();
+}
+
+document.getElementById("clear").onclick = clearScores;

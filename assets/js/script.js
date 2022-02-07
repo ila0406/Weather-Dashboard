@@ -28,6 +28,7 @@ function searchForCity(event) {
     cityDate = searchInput + ' (' + todayDate + ')';
     $("#currentSearch").text(cityDate);
 
+    //Check for Valid Search Input
     if (!searchInput) {
         cityDate = 'Invalid Search Criteria';
         $("#currentSearch").text(cityDate);
@@ -56,33 +57,26 @@ function searchForCity(event) {
             return res.json()
         })
         .then(function (data) {
-            // console.log(data);
             var searchCity = data[0].name;
             var searchState = data[0].state;
             var searchLat = data[0].lat;
             var searchLon = data[0].lon;
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
-            //var weatherDetails = document.querySelector('ul');
 
             fetch(queryOneCallURL)
                 .then(function (res)   {
                     return res.json()
                 })
                 .then(function (data) {
-                    // Today's Icon data
-                    var wiconEl = document.createElement("img");
-                    var currentIcon = data.current.weather[0].icon;
-                    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
-                    console.log(iconUrl);
-                    $('#icon0').attr("src", iconUrl);
-                   
                     // variables for today's forecast
+                    var wiconEl = document.createElement("img");
                     var icon = document.createElement('td');
                     var temp = document.createElement('td');
                     var humdity = document.createElement('td');
                     var uvIndex = document.createElement('td');
                     var windSpeed = document.createElement('td');
                     //variables for daily loop
+                    var dailywiconEl = document.createElement("img");
                     var dailyIcons = document.createElement('td');
                     var dailytemp = document.createElement('td');
                     var dailyhumdity = document.createElement('td');
@@ -99,8 +93,8 @@ function searchForCity(event) {
                     var day4 = moment().add(4, 'days').format('l');
                     var day5 = moment().add(5, 'days').format('l');
 
-                    // Weather Forecast for Today
-                    // $('#icon0').text('Conditions: ' + data.current.weather[0].icon); 
+                    // Weather Forecast for Today 
+                    $('#icon0').attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png");
                     $('#temp0').text('Temp: ' + data.current.temp + ' °F');
                     $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
                     $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');
@@ -130,35 +124,17 @@ function searchForCity(event) {
                     $('#day3').text(day3);
                     $('#day4').text(day4);
                     $('#day5').text(day5); 
-
-                    // forecast Icon data
-                    var dailywiconEl = document.createElement("img");
-                    var dailycurrentIcon = data.daily[1].weather[0].icon;
-                    var dailyiconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
-                    // console.log(dailyiconUrl);
-                    // $('#icon1').attr("src", dailyiconUrl);
-                    // $('#icon2').attr("src", dailyiconUrl);
-                    // $('#icon3').attr("src", dailyiconUrl);
-                    // $('#icon4').attr("src", dailyiconUrl);
-                    // $('#icon5').attr("src", dailyiconUrl);
                     
                     // Weather Forecast for next 5 Days 
-                    for (var i = 1; i < 6; i++) {  
-                        // trConditions = '#conditions'+ [i];
+                    for (var i = 1; i < 6; i++) { 
+                        //dynamic variables for 5-day forecast
                         trIcons = '#icon'+ [i];
                         trTemp = '#temp'+ [i];
                         trWind = '#wind'+ [i];
                         trHumdity = '#humdity'+ [i];
-
                         
-                        // dailyConditions.textContent = data.daily[i].weather[0].description;
-                        // dailyConditions.textContent = data.daily[i].weather[0].icon;
-                        // $(trConditions).text(dailyConditions.textContent);
                         dailycurrentIcon = data.daily[i].weather[0].icon;
-                        console.log(dailycurrentIcon);
                         dailyiconUrl = "http://openweathermap.org/img/wn/" + dailycurrentIcon + ".png";
-                        console.log(dailyiconUrl);
-                        console.log(trIcons);
                         $(trIcons).attr("src", dailyiconUrl);
 
                         dailyIcons.textContent = data.daily[i].weather[0].icon;
@@ -174,12 +150,12 @@ function searchForCity(event) {
                     }
                 })
         })
-   
 }
 
-function clearScores() {
+// Clear Search History from Local Storage
+function clearHistory() {
     window.localStorage.clear();
     window.location.reload();
 }
 
-document.getElementById("clear").onclick = clearScores;
+document.getElementById("clear").onclick = clearHistory;

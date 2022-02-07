@@ -83,9 +83,9 @@ function searchForCity(event) {
 
                     // Weather Forecast for Today 
                     temp.textContent = 'Temp: ' + data.current.temp + ' °F';
-                    windSpeed.textContent = 'Wind: ' +  data.current.wind_speed + ' ';
-                    humdity.textContent = 'Humidity: ' +  data.current.humidity + ' MPH';
-                    uvIndex.textContent = 'UV Index: ' +  data.current.uvi + ' %';
+                    windSpeed.textContent = 'Wind: ' +  data.current.wind_speed + ' MPH';
+                    humdity.textContent = 'Humidity: ' +  data.current.humidity + ' %';
+                    uvIndex.textContent = 'UV Index: ' +  data.current.uvi + ' ';
 
                     // Set weatherDetails
                     weatherDetails.appendChild(temp);

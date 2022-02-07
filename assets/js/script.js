@@ -29,6 +29,15 @@ var searchButton = document.querySelector(".btn");
 
 searchButton.addEventListener('click', searchForCity);
 
+
+    var count = localStorage.getItem("count");
+    searchButton.addEventListener("click", function() {
+      if (count < 10) {
+        count++;
+        localStorage.setItem("count", count);
+      }
+    });
+
 function searchForCity(event) {
     event.preventDefault();
 
@@ -61,22 +70,8 @@ function searchForCity(event) {
             console.log(queryOneCallURL);
             console.log('Lat: ' + searchLat + ' Lon: ' + searchLon + ' - For (' + searchCity + ', ' + searchState + ')');
 
-            getWeather(queryOneCallURL);
-        })
-}
-
-
-//////////////////////////////////////////////////////
-////////////   Results Functionality   ///////////////
-//////////////////////////////////////////////////////
-
-
-//OneCall API https://openweathermap.org/api/one-call-api
-function getWeather(){
-    var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
-
-    //console.log(queryOneCallURL);
-    var weatherDetails = document.querySelector('ul');
+            //getWeather(queryOneCallURL);
+            var weatherDetails = document.querySelector('ul');
 
     fetch(queryOneCallURL)
         .then(function (res)   {
@@ -133,6 +128,14 @@ function getWeather(){
                 $(trHumdity).text(dailyhumdity.textContent);
             }
         })
+        })
+//}
+
+//function getWeather(){
+    //var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?' + 'lat=39.101' + '&lon=' + '-84.512' + '&appid=' + apiKey +'&units=imperial';
+
+    //console.log(queryOneCallURL);
+    
 }
 
 

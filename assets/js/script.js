@@ -1,18 +1,18 @@
 var currentCity = 'Today is';
 var todayDate = moment().format('l');
-var CityDate = currentCity + ' (' + todayDate + ') ';
+var cityDate = currentCity + ' (' + todayDate + ') ';
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
 var weatherForecastEl = document.getElementById("weather-forecast");
 var weatherTodayEl = document.getElementById("weather-today");
-var uvIndexColor = document.getElementById("");
+var uvIndexColor = document.getElementById("uvIndex0");
 var Localstorage = localStorage;
 var cities = [];
 
 // Screen to Start
 weatherForecastEl.setAttribute("class", "hide");
 weatherTodayEl.setAttribute("class", "hide");
-$("#currentSearch").text(CityDate);
+$("#currentSearch").text(cityDate);
 
 // Search for Weather
 searchButton.addEventListener('click', searchForCity);
@@ -20,19 +20,22 @@ searchButton.addEventListener('click', searchForCity);
 // Begin Weather API calls and displaying Forecast
 function searchForCity(event) {
     event.preventDefault();
-    weatherForecastEl.removeAttribute("class");
-    weatherTodayEl.removeAttribute("class");
 
     var searchInput = document.getElementById("search").value;
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
 
     //Update Header and display
-    CityDate = searchInput + ' (' + todayDate + ')';
-    $("#currentSearch").text(CityDate);
+    cityDate = searchInput + ' (' + todayDate + ')';
+    $("#currentSearch").text(cityDate);
 
     if (!searchInput) {
-        console.error('You need a search input value!');
+        cityDate = 'Invalid Search Criteria';
+        $("#currentSearch").text(cityDate);
         return;
+    }
+    else    {
+        weatherForecastEl.removeAttribute("class");
+        weatherTodayEl.removeAttribute("class");
     }
 
     // Store searched cities in Local Storage for future use
@@ -54,16 +57,13 @@ function searchForCity(event) {
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
             var weatherDetails = document.querySelector('ul');
 
-            // Testing GeoAPI fetch & Output for next API call
-            // console.log(queryOneCallURL);
-            // console.log('Lat: ' + searchLat + ' Lon: ' + searchLon + ' - For (' + searchCity + ', ' + searchState + ')');
-
             fetch(queryOneCallURL)
                 .then(function (res)   {
                     return res.json()
                 })
                 .then(function (data) {
                     // variables for today's forecast
+                    var icon = document.createElement('td');
                     var temp = document.createElement('td');
                     var humdity = document.createElement('td');
                     var uvIndex = document.createElement('td');
@@ -85,38 +85,32 @@ function searchForCity(event) {
                     var day4 = moment().add(4, 'days').format('l');
                     var day5 = moment().add(5, 'days').format('l');
 
-                    // Weather Forecast for Today 
+                    // Weather Forecast for Today
+                    $('#icon0').text('Conditions: ' + data.current.weather[0].icon); 
                     $('#temp0').text('Temp: ' + data.current.temp + ' °F');
                     $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
                     $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');
                     $('#uvIndex0').text('UV Index: ' +  data.current.uvi + ' ');
-
-                    console.log(data.current.uvi);
+                    
+                    // Set style attributes to change the color of todays UV Index
                     var checkUV = data.current.uvi;
-
                     if (checkUV == 0 || checkUV <= 2) {
-                        // .uvLow
-                        // .uvModerate
-                        // .uvHigh
-                        // .uvVeryHigh
-                        // .uvExtreme          
+                        uvIndexColor.setAttribute("class", "uvLow");        
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor = 'FFDE33';
+                        uvIndexColor.setAttribute("class", "uvModerate");
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor = 'FEA500';
+                        uvIndexColor.setAttribute("class", "uvHigh");
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor = 'E60072';
+                        uvIndexColor.setAttribute("class", "uvVeryHigh");
                     }
                     else    {
-                        uvIndexColor = '9671FF';
+                        uvIndexColor.setAttribute("class", "uvExtreme");
                     }
-                    console.log(uvIndexColor);
 
-                    
-
+                    // Populate row of tables with Dates
                     $('#day1').text(day1); 
                     $('#day2').text(day2); 
                     $('#day3').text(day3);

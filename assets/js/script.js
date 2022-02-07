@@ -3,13 +3,15 @@ var todayDate = moment().format('l');
 var CityDate = currentCity + ' (' + todayDate + ') ';
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
 var searchButton = document.querySelector(".btn");
-var weatherScreenEl = document.getElementById("weather-screen");
-var uvIndexColor = 'green';
+var weatherForecastEl = document.getElementById("weather-forecast");
+var weatherTodayEl = document.getElementById("weather-today");
+var uvIndexColor = document.getElementById("");
 var Localstorage = localStorage;
 var cities = [];
 
 // Screen to Start
-weatherScreenEl.setAttribute("class", "hide");
+weatherForecastEl.setAttribute("class", "hide");
+weatherTodayEl.setAttribute("class", "hide");
 $("#currentSearch").text(CityDate);
 
 // Search for Weather
@@ -18,7 +20,8 @@ searchButton.addEventListener('click', searchForCity);
 // Begin Weather API calls and displaying Forecast
 function searchForCity(event) {
     event.preventDefault();
-    weatherScreenEl.removeAttribute("class");
+    weatherForecastEl.removeAttribute("class");
+    weatherTodayEl.removeAttribute("class");
 
     var searchInput = document.getElementById("search").value;
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
@@ -61,10 +64,10 @@ function searchForCity(event) {
                 })
                 .then(function (data) {
                     // variables for today's forecast
-                    var temp = document.createElement('li');
-                    var humdity = document.createElement('li');
-                    var uvIndex = document.createElement('li');
-                    var windSpeed = document.createElement('li');
+                    var temp = document.createElement('td');
+                    var humdity = document.createElement('td');
+                    var uvIndex = document.createElement('td');
+                    var windSpeed = document.createElement('td');
                     //variables for daily loop
                     var dailyConditions = document.createElement('td');
                     var dailytemp = document.createElement('td');
@@ -83,16 +86,20 @@ function searchForCity(event) {
                     var day5 = moment().add(5, 'days').format('l');
 
                     // Weather Forecast for Today 
-                    temp.textContent = 'Temp: ' + data.current.temp + ' °F';
-                    windSpeed.textContent = 'Wind: ' +  data.current.wind_speed + ' MPH';
-                    humdity.textContent = 'Humidity: ' +  data.current.humidity + ' %';
-                    uvIndex.textContent = 'UV Index: ' +  data.current.uvi + ' ';
+                    $('#temp0').text('Temp: ' + data.current.temp + ' °F');
+                    $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
+                    $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');
+                    $('#uvIndex0').text('UV Index: ' +  data.current.uvi + ' ');
 
                     console.log(data.current.uvi);
                     var checkUV = data.current.uvi;
 
                     if (checkUV == 0 || checkUV <= 2) {
-                        uvIndexColor = '65CC1F';
+                        // .uvLow
+                        // .uvModerate
+                        // .uvHigh
+                        // .uvVeryHigh
+                        // .uvExtreme          
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
                         uvIndexColor = 'FFDE33';
@@ -108,17 +115,13 @@ function searchForCity(event) {
                     }
                     console.log(uvIndexColor);
 
-                    // Set weatherDetails
-                    weatherDetails.appendChild(temp);
-                    weatherDetails.appendChild(windSpeed);
-                    weatherDetails.appendChild(humdity);
-                    weatherDetails.appendChild(uvIndex);
+                    
 
-                    $("#day1").text(day1); 
-                    $("#day2").text(day2); 
-                    $("#day3").text(day3);
-                    $("#day4").text(day4);
-                    $("#day5").text(day5); 
+                    $('#day1').text(day1); 
+                    $('#day2').text(day2); 
+                    $('#day3').text(day3);
+                    $('#day4').text(day4);
+                    $('#day5').text(day5); 
                     
                     // Weather Forecast for next 5 Days 
                     for (var i = 1; i < 6; i++) {  

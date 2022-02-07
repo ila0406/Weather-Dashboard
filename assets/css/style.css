@@ -15,3 +15,23 @@ h6 {
 .hide {
   display: none;
 }
+
+.uvLow {
+  color: #65CC1F
+}
+
+.uvModerate {
+  color: #FFDE33
+}
+
+.uvHigh {
+  color: #FEA500
+}
+
+.uvVeryHigh {
+  color: #E60072
+}
+
+.uvExtreme {
+  color: #9671FF
+}

@@ -46,10 +46,17 @@ function searchForCity(event) {
 
     var repoList = document.querySelector('ul');
     var newCity = citiesArray.length - 1;
-        console.log(citiesArray[newCity]);
-        var listItem = document.createElement('li');
+        // console.log(citiesArray[newCity]);
+        var listItem = document.createElement('button'); //TBD
         listItem.textContent = citiesArray[newCity];
-        repoList.appendChild(listItem);
+        repoList.appendChild(listItem);  //add class btnP //TBD
+        listItem.setAttribute('class','btn btnP btn-info btn-block'); //TBD
+        listItem.setAttribute('id','search'); //TBD
+        searchButton.addEventListener('click', searchForCity); //TBD
+        console.log(listItem);
+        // console.log();
+        
+       
 
     // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)

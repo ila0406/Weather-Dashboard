@@ -2,17 +2,17 @@ var currentCity = 'Today is';
 var todayDate = moment().format('l');
 var cityDate = currentCity + ' (' + todayDate + ') ';
 var apiKey = 'ab1d33e89edaaf1e007ef532ee7c019c'
-var searchButton = document.querySelector(".btn");
-var weatherForecastEl = document.getElementById("weather-forecast");
-var weatherTodayEl = document.getElementById("weather-today");
-var uvIndexColor = document.getElementById("uvIndex0");
+var searchButton = document.querySelector('.btn');
+var weatherForecastEl = document.getElementById('weather-forecast');
+var weatherTodayEl = document.getElementById('weather-today');
+var uvIndexColor = document.getElementById('uvIndex0');
 var Localstorage = localStorage;
 var cities = [];
 
 // Screen to Start
-weatherForecastEl.setAttribute("class", "hide");
-weatherTodayEl.setAttribute("class", "hide");
-$("#currentSearch").text(cityDate);
+weatherForecastEl.setAttribute('class', 'hide');
+weatherTodayEl.setAttribute('class', 'hide');
+$('#currentSearch').text(cityDate);
 
 // Search for Weather
 searchButton.addEventListener('click', searchForCity);
@@ -21,28 +21,28 @@ searchButton.addEventListener('click', searchForCity);
 function searchForCity(event) {
     event.preventDefault();
 
-    var searchInput = document.getElementById("search").value;
+    var searchInput = document.getElementById('search').value;
     var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
 
     //Update Header and display
     cityDate = searchInput + ' (' + todayDate + ')';
-    $("#currentSearch").text(cityDate);
+    $('#currentSearch').text(cityDate);
 
     //Check for Valid Search Input
     if (!searchInput) {
         cityDate = 'Invalid Search Criteria';
-        $("#currentSearch").text(cityDate);
+        $('#currentSearch').text(cityDate);
         return;
     }
     else    {
-        weatherForecastEl.removeAttribute("class");
-        weatherTodayEl.removeAttribute("class");
+        weatherForecastEl.removeAttribute('class');
+        weatherTodayEl.removeAttribute('class');
     }
 
     // Store searched cities in Local Storage for future use
     cities.push(searchInput);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    var citiesArray = JSON.parse(Localstorage.getItem("cities"));
+    localStorage.setItem('cities', JSON.stringify(cities));
+    var citiesArray = JSON.parse(Localstorage.getItem('cities'));
 
     var repoList = document.querySelector('ul');
     var newCity = citiesArray.length - 1;
@@ -63,20 +63,23 @@ function searchForCity(event) {
             var searchLon = data[0].lon;
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
 
+            console.log(searchCity + ', ' + searchState);
+            console.log(data);
+
             fetch(queryOneCallURL)
                 .then(function (res)   {
                     return res.json()
                 })
                 .then(function (data) {
                     // variables for today's forecast
-                    var wiconEl = document.createElement("img");
+                    var wiconEl = document.createElement('img');
                     var icon = document.createElement('td');
                     var temp = document.createElement('td');
                     var humdity = document.createElement('td');
                     var uvIndex = document.createElement('td');
                     var windSpeed = document.createElement('td');
                     //variables for daily loop
-                    var dailywiconEl = document.createElement("img");
+                    var dailywiconEl = document.createElement('img');
                     var dailyIcons = document.createElement('td');
                     var dailytemp = document.createElement('td');
                     var dailyhumdity = document.createElement('td');
@@ -94,7 +97,7 @@ function searchForCity(event) {
                     var day5 = moment().add(5, 'days').format('l');
 
                     // Weather Forecast for Today 
-                    $('#icon0').attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png");
+                    $('#icon0').attr('src', 'http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '.png');
                     $('#temp0').text('Temp: ' + data.current.temp + ' °F');
                     $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
                     $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');
@@ -103,19 +106,19 @@ function searchForCity(event) {
                     // Set style attributes to change the color of todays UV Index
                     var checkUV = data.current.uvi;
                     if (checkUV == 0 || checkUV <= 2) {
-                        uvIndexColor.setAttribute("class", "uvLow");        
+                        uvIndexColor.setAttribute('class', 'uvLow');        
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor.setAttribute("class", "uvModerate");
+                        uvIndexColor.setAttribute('class', 'uvModerate');
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor.setAttribute("class", "uvHigh");
+                        uvIndexColor.setAttribute('class', 'uvHigh');
                     }
                     else if (checkUV > 2 && checkUV <=5)   {
-                        uvIndexColor.setAttribute("class", "uvVeryHigh");
+                        uvIndexColor.setAttribute('class', 'uvVeryHigh');
                     }
                     else    {
-                        uvIndexColor.setAttribute("class", "uvExtreme");
+                        uvIndexColor.setAttribute('class', 'uvExtreme');
                     }
 
                     // Populate row of tables with Dates
@@ -134,8 +137,8 @@ function searchForCity(event) {
                         trHumdity = '#humdity'+ [i];
                         
                         dailycurrentIcon = data.daily[i].weather[0].icon;
-                        dailyiconUrl = "http://openweathermap.org/img/wn/" + dailycurrentIcon + ".png";
-                        $(trIcons).attr("src", dailyiconUrl);
+                        dailyiconUrl = 'http://openweathermap.org/img/wn/' + dailycurrentIcon + '.png';
+                        $(trIcons).attr('src', dailyiconUrl);
 
                         dailyIcons.textContent = data.daily[i].weather[0].icon;
                         $(trIcons).text(dailyIcons.textContent);
@@ -158,4 +161,4 @@ function clearHistory() {
     window.location.reload();
 }
 
-document.getElementById("clear").onclick = clearHistory;
+document.getElementById('clear').onclick = clearHistory;

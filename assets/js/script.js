@@ -45,17 +45,14 @@ function searchForCity(event) {
     var citiesArray = JSON.parse(Localstorage.getItem('cities'));
 
     var repoList = document.querySelector('ul');
-    var newCity = citiesArray.length - 1;
-        // console.log(citiesArray[newCity]);
-        var listItem = document.createElement('button'); //TBD
-        listItem.textContent = citiesArray[newCity];
-        repoList.appendChild(listItem);  //add class btnP //TBD
-        listItem.setAttribute('class','btn btnP btn-info btn-block'); //TBD
-        listItem.setAttribute('id','search'); //TBD
-        searchButton.addEventListener('click', searchForCity); //TBD
-        console.log(listItem);
-        // console.log();
-        
+    var newCity = citiesArray.length - 1;   
+    var listItem = document.createElement('button');
+    listItem.textContent = citiesArray[newCity];
+    repoList.appendChild(listItem);
+    listItem.setAttribute('class','btn btnP btn-info btn-block');
+    listItem.setAttribute('id','search');
+    searchButton.addEventListener('click', searchForCity);
+    console.log(listItem);      
        
 
     // Use GeoAPI to find Lat/Long for city inputed in search box

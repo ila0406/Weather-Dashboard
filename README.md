@@ -12,31 +12,36 @@ SO THAT I can plan a trip accordingly
 The following images shows the mokup of the web application's appearance and functionality. 
 
 ### Mockup
-![mockup](./assets/images/06-server-side-apis-homework-demo.png)
+<img src="./assets/images/06-server-side-apis-homework-demo.png" width="900">
 
 ### Search for a city
 I am presented with current and future conditions for that city and that city is added to the search history
-![](./assets/images/Weather-Dashboard.png)
+
+<img src="./assets/images/Weather-Dashboard.png" width="900">
 
 ### Current Weather Conditions in City
 I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-![](./assets/images/Current.png)
+
+<img src="./assets/images/Current.png" width="300">
 
 ### UV index
 I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-![Low](./assets/images/UVgreen.png)
-![Moderate](./assets/images/UVyellow.png)
-![Extreme](./assets/images/Uvpurple.png)
+
+<img src="./assets/images/UVgreen.png" width="400">
+<img src="./assets/images/UVyellow.png" width="275">
+<img src="./assets/images/Uvpurple.png" width="300">
 
 ### Future weather conditions for that city
 I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-![5-day Forecast](./assets/images/5day.png)
 
+<img src="./assets/images/5day.png" width="400">
 
 ### Search vs Click on City
 I am again presented with current and future conditions for that city
-![](./assets/images/Search History.png)
+
+<img src="./assets/images/Search History.png" width="200">
 
 ## Accessibility
 Lighthouse report on accesibility
-![Lighthouse](./assets/images/lighthouse.png)
+
+<img src="./assets/images/lighthouse.png" width="900">

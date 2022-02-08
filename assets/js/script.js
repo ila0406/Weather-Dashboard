@@ -63,8 +63,8 @@ function searchForCity(event) {
             var searchLon = data[0].lon;
             var queryOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&appid=' + apiKey +'&units=imperial';
 
-            console.log(searchCity + ', ' + searchState);
-            console.log(data);
+            // console.log(searchCity + ', ' + searchState);
+            // console.log(data);
 
             fetch(queryOneCallURL)
                 .then(function (res)   {
@@ -97,7 +97,7 @@ function searchForCity(event) {
                     var day5 = moment().add(5, 'days').format('l');
 
                     // Weather Forecast for Today 
-                    $('#icon0').attr('src', 'http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '.png');
+                    $('#icon0').attr('src', 'https://openweathermap.org/img/wn/' + data.current.weather[0].icon + '.png');
                     $('#temp0').text('Temp: ' + data.current.temp + ' °F');
                     $('#wind0').text('Wind: ' +  data.current.wind_speed + ' MPH');
                     $('#humdity0').text('Humidity: ' +  data.current.humidity + ' %');
@@ -137,7 +137,7 @@ function searchForCity(event) {
                         trHumdity = '#humdity'+ [i];
                         
                         dailycurrentIcon = data.daily[i].weather[0].icon;
-                        dailyiconUrl = 'http://openweathermap.org/img/wn/' + dailycurrentIcon + '.png';
+                        dailyiconUrl = 'https://openweathermap.org/img/wn/' + dailycurrentIcon + '.png';
                         $(trIcons).attr('src', dailyiconUrl);
 
                         dailyIcons.textContent = data.daily[i].weather[0].icon;

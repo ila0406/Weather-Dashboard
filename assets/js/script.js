@@ -160,7 +160,7 @@ function searchForCity(event) {
 
     listItem.addEventListener('click', function()   {
         var historyInput = this.textContent;
-        console.log(historyInput);
+        // console.log(historyInput);
         // console.log(document.getElementById('weather-forecast').innerHTML); //Entirely of HTML`
         // console.log(document.getElementById('weather-forecast').textContent); //Vs content in the html
         var queryHistoryUrl= 'https://api.openweathermap.org/geo/1.0/direct?q=' + historyInput + '&limit=1&appid=' + apiKey;

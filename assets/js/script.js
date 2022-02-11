@@ -17,45 +17,12 @@ $('#currentSearch').text(cityDate);
 // Search for Weather
 searchButton.addEventListener('click', searchForCity);
 
-// Begin Weather API calls and displaying Forecast
-function searchForCity(event) {
-    event.preventDefault();
-
-    var searchInput = document.getElementById('search').value;
-    var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
-
+// Use GeoAPI to find Lat/Long for city inputed in search box
+function fetchCall(queryGeoURL, searchInput) {
     //Update Header and display
     cityDate = searchInput + ' (' + todayDate + ')';
     $('#currentSearch').text(cityDate);
 
-    //Check for Valid Search Input
-    if (!searchInput) {
-        cityDate = 'Invalid Search Criteria';
-        $('#currentSearch').text(cityDate);
-        return;
-    }
-    else    {
-        weatherForecastEl.removeAttribute('class');
-        weatherTodayEl.removeAttribute('class');
-    }
-
-    // Store searched cities in Local Storage for future use
-    cities.push(searchInput);
-    localStorage.setItem('cities', JSON.stringify(cities));
-    var citiesArray = JSON.parse(Localstorage.getItem('cities'));
-
-    var repoList = document.querySelector('ul');
-    var newCity = citiesArray.length - 1;   
-    var listItem = document.createElement('button');
-    listItem.textContent = citiesArray[newCity];
-    repoList.appendChild(listItem);
-    listItem.setAttribute('class','btn btnP btn-info btn-block');
-    listItem.setAttribute('id','search');
-    searchButton.addEventListener('click', searchForCity);
-    console.log(listItem);      
-       
-
-    // Use GeoAPI to find Lat/Long for city inputed in search box
     fetch(queryGeoURL)
         .then(function (res)   {
             return res.json()
@@ -158,6 +125,51 @@ function searchForCity(event) {
                 })
         })
 }
+
+// Begin Weather API calls and displaying Forecast
+function searchForCity(event) {
+    event.preventDefault();
+
+    var searchInput = document.getElementById('search').value;
+    var queryGeoURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + '&limit=1&appid=' + apiKey;
+
+    //Check for Valid Search Input
+    if (!searchInput) {
+        cityDate = 'Invalid Search Criteria';
+        $('#currentSearch').text(cityDate);
+        return;
+    }
+    else    {
+        weatherForecastEl.removeAttribute('class');
+        weatherTodayEl.removeAttribute('class');
+    }
+
+    // Store searched cities in Local Storage for future use
+    cities.push(searchInput);
+    localStorage.setItem('cities', JSON.stringify(cities));
+    var citiesArray = JSON.parse(Localstorage.getItem('cities'));
+
+    var cittiesList = document.querySelector('ul');
+    var newCity = citiesArray.length - 1;   
+    var listItem = document.createElement('button');
+
+    listItem.textContent = citiesArray[newCity];
+    cittiesList.appendChild(listItem);
+    listItem.setAttribute('class','btn btnP btn-info btn-block');
+    listItem.setAttribute('id','search');
+
+    listItem.addEventListener('click', function()   {
+        var historyInput = this.textContent;
+        console.log(historyInput);
+        // console.log(document.getElementById('weather-forecast').innerHTML); //Entirely of HTML`
+        // console.log(document.getElementById('weather-forecast').textContent); //Vs content in the html
+        var queryHistoryUrl= 'https://api.openweathermap.org/geo/1.0/direct?q=' + historyInput + '&limit=1&appid=' + apiKey;
+        fetchCall(queryGeoURL, historyInput);
+    });
+       
+    fetchCall(queryGeoURL, searchInput);
+}
+
 
 // Clear Search History from Local Storage
 function clearHistory() {

@@ -2,6 +2,12 @@
 Homework repo for wk6 - 
 https://ila0406.github.io/Weather-Dashboard/
 
+## Description
+The weather dashboard is a website that lets the user search for the weather any where in the world. Once a city is submited in the search box, and button clicked the API is called. The Weather API will return today's weather, along with the the 5-day forecast. All previously searched cities are saved in the 'Previous Searches' section of the nav bar, and can be clicked on to see the weather again. 
+
+## Technologies Used
+CSS, HTML, Javascript, APIs, Bootstrap, jQuery, Moment.js
+
 ## User Story
 AS A traveler
 I WANT to see the weather outlook for multiple cities
@@ -45,3 +51,6 @@ I am again presented with current and future conditions for that city
 Lighthouse report on accesibility
 
 <img src="./assets/images/lighthouse.png" width="700">
+
+## Questions
+email: ila0406@gmail.com

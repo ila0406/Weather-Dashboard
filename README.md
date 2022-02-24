@@ -12,12 +12,12 @@ SO THAT I can plan a trip accordingly
 The following images shows the mokup of the web application's appearance and functionality. 
 
 ### Mockup
-<img src="./assets/images/06-server-side-apis-homework-demo.png" width="900">
+<img src="./assets/images/06-server-side-apis-homework-demo.png" width="700">
 
 ### Search for a city
 I am presented with current and future conditions for that city and that city is added to the search history
 
-<img src="./assets/images/Weather-Dashboard.png" width="900">
+<img src="./assets/images/Weather-Dashboard.png" width="700">
 
 ### Current Weather Conditions in City
 I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
@@ -44,4 +44,4 @@ I am again presented with current and future conditions for that city
 ## Accessibility
 Lighthouse report on accesibility
 
-<img src="./assets/images/lighthouse.png" width="900">
+<img src="./assets/images/lighthouse.png" width="700">
